@@ -1,0 +1,68 @@
+# Diretórios de build
+bin/
+obj/
+out/
+
+# Rider (JetBrains)
+.idea/
+*.sln.iml
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Arquivos de publish temporários
+publish/
+app.publish/
+
+# Arquivos de configurações pessoais
+*.dbmdl
+*.pdb
+*.cache
+*.config
+*.bak
+
+# Arquivos de pacotes
+*.nupkg
+packages/
+*.snupkg
+
+# Configuração do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Certificados e segredos (por precaução)
+*.pfx
+*.key
+*.pem
+*.crt
+secrets.json
+
+# Test results
+TestResults/
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Arquivos gerados por ferramentas
+*.generated.cs
+
+# Logs e dumps
+*.log
+*.dmp
+
+# Backup de editores
+*~
+*.swp

@@ -29,6 +29,7 @@ Create a robust and organized application that allows anyone to:
 ---
 
 ### 📌 `Event` (Barbecue)
+- `id`
 - `name`, `description`
 - `date`, `time`, `location`
 - `createdAt`
@@ -37,6 +38,17 @@ Create a robust and organized application that allows anyone to:
     - `name`
     - `number`
 - `contributionType`: value, item, or hybrid
+- - `extraActivity` (optional):
+  - `name`: e.g., Soccer, Pool
+  - `description`
+  - `individualCost`: amount each participant pays (if applicable)
+- `requiredItems`: list of objects:
+  - `name`: e.g., Meat, Ice
+  - `requiredQuantity`
+  - `assignedQuantity`
+  - `estimatedCost`
+  - `assignedUserId` (optional)
+
 - `totalCost`
 - `inviteCode`: used for sharing the event
 - `limited guests?`
@@ -50,23 +62,16 @@ Create a robust and organized application that allows anyone to:
    - `name`
    - `number`
    - `contribuition`
+     
       -`confirmedPayment`
-      - `item?`
+     
+      - `item`
   - `isInExtra`
-- `extraActivity` (optional):
-  - `name`: e.g., Soccer, Pool
-  - `description`
-  - `individualCost`: amount each participant pays (if applicable)
-- `requiredItems`: list of objects:
-  - `name`: e.g., Meat, Ice
-  - `requiredQuantity`
-  - `assignedQuantity`
-  - `estimatedCost`
-  - `assignedUserId` (optional)
 
 ---
 
 ### 📌 `User`
+- `id`
 - `firstName`
 - `lastName`
 - `email`
@@ -89,6 +94,7 @@ Create a robust and organized application that allows anyone to:
 ---
 
 ### 📌 `Participant`
+- `id`
 - `user`
   - `id`
   - `name` 

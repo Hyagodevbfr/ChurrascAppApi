@@ -31,12 +31,31 @@ Create a robust and organized application that allows anyone to:
 ### 📌 `Event` (Barbecue)
 - `name`, `description`
 - `date`, `time`, `location`
-- `organizerId` (reference to the user who created the event)
+- `createdAt`
+- `organizer` (reference to the user who created the event)
+    - `id`
+    - `name`
+    - `number`
 - `contributionType`: value, item, or hybrid
-- `estimatedTotalCost`
-- `inviteCode`: used for sharing the event via link
+- `totalCost`
+- `inviteCode`: used for sharing the event
+- `limited guests?`
+- `numberOfGuests`
+- `guests`
+   - `id`
+   - `name`
+   - `number`
+- `confirmed`
+   - `id`
+   - `name`
+   - `number`
+   - `contribuition`
+      -`confirmedPayment`
+      - `item?`
+  - `isInExtra`
 - `extraActivity` (optional):
   - `name`: e.g., Soccer, Pool
+  - `description`
   - `individualCost`: amount each participant pays (if applicable)
 - `requiredItems`: list of objects:
   - `name`: e.g., Meat, Ice
@@ -48,25 +67,31 @@ Create a robust and organized application that allows anyone to:
 ---
 
 ### 📌 `User`
-- `firstName`, `lastName`
+- `firstName`
+- `lastName`
 - `email`
 - `cpf` (Brazilian ID)
-- (optional) `phone`, `avatar`, `createdAt`
+- `phone`
+- `password`
 
 ---
 
 ### 📌 `JoinRequest` (Participation Request)
-- `userId`
+- `user`
+  - `id`
+  - `name` 
 - `eventId`
 - `status`: `pending`, `authorized`, `rejected`, `cancelled`
-- `createdAt`
+- `requestedAt`
 
 > This is a basic participation request. The organizer must **authorize** the user before they can proceed to confirm participation and define their contribution. Until authorized, the user only sees public event information.
 
 ---
 
 ### 📌 `Participant`
-- `userId`
+- `user`
+  - `id`
+  - `name` 
 - `eventId`
 - `assignedItem` or `contributedAmount`
 - `participatingInExtraActivity`: true/false
@@ -87,7 +112,7 @@ This section lists all the key features currently planned or implemented in the 
 ### 📅 Event Management
 - Create barbecue events
 - Set location, date, time and description
-- Define contribution type (items or money)
+- Define contribution type (items, money or hybrid)
 - Enable optional extra activity (e.g., soccer)
 - Generate and share invite link
 

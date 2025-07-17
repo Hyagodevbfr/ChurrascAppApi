@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurrascApp.Domain", "ChurrascApp.Domain\ChurrascApp.Domain.csproj", "{4AD47FDE-52BA-44FE-8D37-D96D9FADF027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurrascApp.Application", "ChurrascApp.Application\ChurrascApp.Application.csproj", "{3AC1599E-A477-4661-AB3C-3F14E2821006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurrascApp.Infrastructure", "ChurrascApp.Infrastructure\ChurrascApp.Infrastructure.csproj", "{8D29D157-0A3F-4399-8467-75E374BA07D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurrascApp.Api", "ChurrascApp.Api\ChurrascApp.Api.csproj", "{16354C59-47D0-43BE-AA39-1411499572A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChurrascApp.Tests", "ChurrascApp.Tests", "{4FB2474F-051E-4C25-91A6-B9AAA5FAEE6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurrascApp.Domain.Tests", "ChurrascApp.Tests\ChurrascApp.Domain.Tests\ChurrascApp.Domain.Tests.csproj", "{801DE3AB-C46E-4372-9A32-89117F0C531E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AD47FDE-52BA-44FE-8D37-D96D9FADF027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD47FDE-52BA-44FE-8D37-D96D9FADF027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD47FDE-52BA-44FE-8D37-D96D9FADF027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD47FDE-52BA-44FE-8D37-D96D9FADF027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC1599E-A477-4661-AB3C-3F14E2821006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC1599E-A477-4661-AB3C-3F14E2821006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC1599E-A477-4661-AB3C-3F14E2821006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC1599E-A477-4661-AB3C-3F14E2821006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D29D157-0A3F-4399-8467-75E374BA07D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D29D157-0A3F-4399-8467-75E374BA07D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D29D157-0A3F-4399-8467-75E374BA07D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D29D157-0A3F-4399-8467-75E374BA07D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16354C59-47D0-43BE-AA39-1411499572A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16354C59-47D0-43BE-AA39-1411499572A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16354C59-47D0-43BE-AA39-1411499572A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16354C59-47D0-43BE-AA39-1411499572A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801DE3AB-C46E-4372-9A32-89117F0C531E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801DE3AB-C46E-4372-9A32-89117F0C531E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801DE3AB-C46E-4372-9A32-89117F0C531E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801DE3AB-C46E-4372-9A32-89117F0C531E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{801DE3AB-C46E-4372-9A32-89117F0C531E} = {4FB2474F-051E-4C25-91A6-B9AAA5FAEE6B}
+	EndGlobalSection
+EndGlobal

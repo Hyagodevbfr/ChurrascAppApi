@@ -1,0 +1,6 @@
+@ChurrascApp.Api_HostAddress = http://localhost:5086
+
+GET {{ChurrascApp.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

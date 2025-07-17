@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ChurrascApp.Domain\ChurrascApp.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

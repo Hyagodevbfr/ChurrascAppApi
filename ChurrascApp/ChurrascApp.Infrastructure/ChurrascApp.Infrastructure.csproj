@@ -7,7 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ChurrascApp.Application\ChurrascApp.Application.csproj" />
       <ProjectReference Include="..\ChurrascApp.Domain\ChurrascApp.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="3.4.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Options">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.extensions.options\8.0.2\lib\net8.0\Microsoft.Extensions.Options.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

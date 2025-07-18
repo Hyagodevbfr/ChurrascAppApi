@@ -10,4 +10,8 @@
       <ProjectReference Include="..\ChurrascApp.Domain\ChurrascApp.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+    </ItemGroup>
+
 </Project>

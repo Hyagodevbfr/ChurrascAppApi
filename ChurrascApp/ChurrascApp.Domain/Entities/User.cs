@@ -4,22 +4,21 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ChurrascApp.Domain.Entities;
 
-public class User
+public class User : BaseEntity
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; private set; } = ObjectId.GenerateNewId().ToString();
     [BsonElement("personalInfo")]
     public PersonalInfo PersonalInfo { get; private set; }
-    [BsonElement("email")]
-    public EmailAddress Email { get; private set; }
+    [BsonElement("contactInfo")]
+    public ContactInfo ContactInfo { get; private set; }
     [BsonElement("password")]
     public string Password { get; private set; }
 
-    public User(PersonalInfo personalInfo, EmailAddress email, string password)
+    public User(){}
+
+    public User(PersonalInfo personalInfo, ContactInfo contactInfo, string password)
     {
         PersonalInfo = personalInfo;
-        Email = email;
+        ContactInfo = contactInfo;
         Password = password;
     }
 }

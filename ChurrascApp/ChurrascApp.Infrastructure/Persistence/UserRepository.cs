@@ -1,6 +1,6 @@
 using ChurrascApp.Domain.Entities;
 using ChurrascApp.Domain.Repositories;
-using ChurrascApp.Infrastructure.Configurations;
+using ChurrascApp.Infrastructure.Configurations.Mongo;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

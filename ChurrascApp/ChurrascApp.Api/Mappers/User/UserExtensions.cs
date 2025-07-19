@@ -1,4 +1,5 @@
 using ChurrascApp.Api.Models.Requests;
+using ChurrascApp.Api.Models.Responses;
 using ChurrascApp.Api.Models.Responses.User;
 using ChurrascApp.Application.DTOs.User;
 
@@ -15,6 +16,16 @@ public static class UserExtensions
     public static UserLoginDto LoginToDto(this UserLoginRequest loginRequest)
     {
         return new UserLoginDto(loginRequest.Email, loginRequest.Password);
+    }
+
+    public static AuthResponse ToAuthResponse(this AuthResponseDto authResponseDto)
+    {
+        return new AuthResponse(
+            authResponseDto.AccessToken,
+            authResponseDto.IsSuccess,
+            authResponseDto.Message,
+            authResponseDto.RefreshToken
+            );
     }
     
     //Register Extensions
@@ -52,6 +63,18 @@ public static class UserExtensions
             Email = userRegisterRequest.Email,
             PhoneNumber = userRegisterRequest.PhoneNumber,
             Cpf = userRegisterRequest.Cpf
+        };
+    }
+
+    public static UserResponse DtoToResponse(this UserResponseDto  userResponseDto)
+    {
+        return new UserResponse
+        {
+            Id = userResponseDto.Id,
+            FullName = userResponseDto.FullName,
+            Email = userResponseDto.Email,
+            PhoneNumber = userResponseDto.PhoneNumber,
+            Cpf = userResponseDto.Cpf
         };
     }
     

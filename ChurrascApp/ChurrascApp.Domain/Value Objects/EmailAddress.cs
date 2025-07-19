@@ -21,5 +21,5 @@ public class EmailAddress
         
         Email = newEmail;
     }
-    private static bool IsValid(string email) => string.IsNullOrEmpty(email) && new EmailAddressAttribute().IsValid(email);
+    private static bool IsValid(string email) => !string.IsNullOrEmpty(email) && new EmailAddressAttribute().IsValid(email);
 }

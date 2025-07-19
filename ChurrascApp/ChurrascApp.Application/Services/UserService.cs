@@ -1,3 +1,5 @@
+using System.Globalization;
+using ChurrascApp.Application.Configurations.Token;
 using ChurrascApp.Application.DTOs.User;
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Domain.Repositories;
@@ -12,13 +14,15 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordService _passwordService;
     private readonly PasswordValidationService _passwordValidationService;
+    private readonly TokenConfiguration _tokenConfiguration;
     
-    public UserService(PasswordValidationService passwordValidationService, IPasswordService passwordService, IUserRepository userRepository, ITokenService tokenService)
+    public UserService(PasswordValidationService passwordValidationService, IPasswordService passwordService, IUserRepository userRepository, ITokenService tokenService, TokenConfiguration tokenConfiguration)
     {
         _passwordValidationService = passwordValidationService;
         _passwordService = passwordService;
         _userRepository = userRepository;
         _tokenService = tokenService;
+        _tokenConfiguration = tokenConfiguration;
     }
     public async Task<UserResponseDto> GetById(string id)
     {
@@ -98,7 +102,8 @@ public class UserService : IUserService
         return new AuthResponseDto(
             token,
             true,
-            "Logged in"
+            "Logged in",
+            DateTime.Now.AddDays(_tokenConfiguration.TimeToExpiry).ToString(CultureInfo.InvariantCulture)
         );
     }
 }

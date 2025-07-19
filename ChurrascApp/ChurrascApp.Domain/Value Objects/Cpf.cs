@@ -33,7 +33,7 @@ public class Cpf
         int[] multiplier1 = new int[] {10, 9, 8, 7, 6, 5, 4, 3, 2};
         int[] multiplier2 = new int[] {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
         
-        string tempCpf = cpf.Substring(9,2);
+        string tempCpf = cpf.Substring(0,9);
         int sum = 0;
         
         for (int i = 0; i < 9; i++)

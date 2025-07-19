@@ -1,9 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ChurrascApp.Application.Configurations.Token;
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Domain.Entities;
-using ChurrascApp.Infrastructure.Configurations.Token;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ChurrascApp.Application.Services;
@@ -24,7 +24,7 @@ public class TokenService: ITokenService
         var claims = new List<Claim>
         {
             new (JwtRegisteredClaimNames.Name, $"{user.PersonalInfo.FirstName} {user.PersonalInfo.LastName}" ?? ""),
-            new (JwtRegisteredClaimNames.NameId, user.Id ?? ""),
+            new ("Id", user.Id ?? ""),
             new (JwtRegisteredClaimNames.Aud, _tokenConfiguration.Audience),
             new (JwtRegisteredClaimNames.Iss, _tokenConfiguration.Issuer),
             new ("Jti", Guid.NewGuid().ToString())

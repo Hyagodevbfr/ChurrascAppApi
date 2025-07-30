@@ -1,6 +1,7 @@
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Application.Services;
 using ChurrascApp.Domain.Services;
+using ChurrascApp.Infrastructure.Services;
 
 namespace ChurrascApp.Api.Extensions;
 

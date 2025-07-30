@@ -6,7 +6,7 @@ using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ChurrascApp.Application.Services;
+namespace ChurrascApp.Infrastructure.Services;
 
 public class TokenService: ITokenService
 {

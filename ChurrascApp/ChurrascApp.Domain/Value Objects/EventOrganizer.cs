@@ -2,7 +2,14 @@ namespace ChurrascApp.Domain.Value_Objects;
 
 public class EventOrganizer
 {
-    public string Id { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string Number { get; set; } =  string.Empty;
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Number { get; set; }
+    
+    public EventOrganizer(string id, string name, string number)
+    {
+        Id = id;
+        Name = name;
+        Number = number;
+    }
 }

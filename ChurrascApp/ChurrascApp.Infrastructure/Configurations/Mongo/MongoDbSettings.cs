@@ -6,6 +6,7 @@ public class MongoDbSettings
 {
     public string ConnectionString { get; set; } = string.Empty;
     public string DatabaseName { get; set; } = string.Empty;
-    
-    public User Users {get; set; } 
+
+    public User Users { get; set; } 
+    public Event Events { get; set; }
 }

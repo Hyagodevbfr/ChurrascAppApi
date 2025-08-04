@@ -68,7 +68,13 @@ public class UserService : IUserService
         if (user is null)
             throw new ArgumentException("User not found");
 
-        user.ToUpdate();
+        user.UpdateUser(
+            updateDto.FirstName,
+            updateDto.LastName,
+            updateDto.Cpf,
+            updateDto.PhoneNumber,
+            updateDto.Email
+            );
         await _userRepository.Update(user);
         
         return user.ToResponse();

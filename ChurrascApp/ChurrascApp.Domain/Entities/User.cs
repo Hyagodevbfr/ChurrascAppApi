@@ -21,4 +21,19 @@ public class User : BaseEntity
         ContactInfo = contactInfo;
         Password = password;
     }
+
+    public void UpdateUser( string? firstName, string? lastName, string? cpf, string? phoneNumber, string? email)
+    {
+        if(!string.IsNullOrWhiteSpace(firstName))
+            PersonalInfo.ChangeFirstName(firstName);
+        
+        if(!string.IsNullOrWhiteSpace(lastName))
+            PersonalInfo.ChangeLastName(lastName);
+        
+        if(!string.IsNullOrWhiteSpace(cpf))
+            PersonalInfo.Cpf.ChangeCpf(cpf);
+        
+        if(!string.IsNullOrWhiteSpace(email))
+            ContactInfo.EmailAddress.ChangeEmail(email);
+    }
 }

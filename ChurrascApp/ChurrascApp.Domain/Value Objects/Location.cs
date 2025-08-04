@@ -2,12 +2,12 @@ namespace ChurrascApp.Domain.Value_Objects;
 
 public class Location
 {
-    public string Street { get; set; }
-    public int? Number { get; set; }
-    public string City { get; set; }
-    public int ZipCode { get; set; }
+    public string Street { get; private set; }
+    public int Number { get; private set; }
+    public string City { get; private set; }
+    public string ZipCode { get; private set; }
 
-    public Location(string street, int number, string city, int zipCode)
+    public Location(string street, int number, string city, string zipCode)
     {
         Validate(street, number, city, zipCode);
         
@@ -17,7 +17,7 @@ public class Location
         ZipCode = zipCode;
     }
 
-    private void Validate(string street, int? number, string city, int zipCode)
+    private void Validate(string street, int? number, string city, string zipCode)
     {
         if (string.IsNullOrWhiteSpace(street))
             throw new ArgumentException("Street cannot be empty");
@@ -34,7 +34,7 @@ public class Location
         if (city.Length <= 2)
             throw new ArgumentException("City cannot be longer than 2 characters");
 
-        if (zipCode != 8)
+        if (zipCode.Length != 8)
             throw new ArgumentException("Zip Code must be 8 digits");
     }
 

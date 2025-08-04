@@ -26,7 +26,7 @@ namespace ChurrascApp.Api.Controllers
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest request)
         {
             var result = await _userService.Register(request.RequestToDto());
-                
+
             var response = new ViewResponse<UserResponse>(
                 true,
                 "User registered successfully",
@@ -47,8 +47,53 @@ namespace ChurrascApp.Api.Controllers
                 "User logged in successfully",
                 result.ToAuthResponse()
             );
+
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        // [Authorize]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var result = await _userService.GetById(id);
+            
+            var response = new ViewResponse<UserResponse>(
+                true,
+                "User retrieved successfully",
+                result.DtoToResponse()
+            );
+
+            return Ok(response);
+        }
+
+        [HttpPatch]
+        // [Authorize]
+        public async Task<IActionResult> Update([FromBody] UserUpdateRequest request)
+        {
+            var result = await _userService.Update(request.RequestToDto());
+
+            var response = new ViewResponse<UserResponse>(
+                    true,
+                    "User updated successfully",
+                    result.DtoToResponse()
+            );
             
             return Ok(response);
         }
-    }
+
+        [HttpDelete("{id}")]
+        // [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _userService.Delete(id);
+
+            var response = new ViewResponse(
+                true,
+                "User deleted successfully"
+            );
+            
+            return Ok(response);
+        }
+
+    }    
 }

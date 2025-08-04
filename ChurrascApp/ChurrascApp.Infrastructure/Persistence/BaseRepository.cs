@@ -22,7 +22,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
         try
         {
-            var filter = Builders<T>.Filter.Eq("_id", id);
+            var filter = Builders<T>.Filter.Eq(t => t.Id, id);
             return await _mongoContext.Find(filter).FirstOrDefaultAsync();
         }
         catch (Exception e)

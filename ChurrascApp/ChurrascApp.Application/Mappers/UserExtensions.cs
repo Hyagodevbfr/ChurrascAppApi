@@ -31,17 +31,4 @@ public static class UserExtensions
             password
         );
     }
-
-    public static UserUpdateDto ToUpdate(this User user)
-    {
-        return new UserUpdateDto(
-            Id: user.Id,
-            FirstName: user.PersonalInfo.FirstName,
-            LastName: user.PersonalInfo.LastName,
-            Cpf: user.PersonalInfo.Cpf.Number,
-            PhoneNumber: user.ContactInfo.PhoneNumber.Number,
-            Email: user.ContactInfo.EmailAddress.Email,
-            Password: user.Password
-            );
-    }
 }

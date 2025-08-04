@@ -13,6 +13,7 @@ public static class ServiceExtensions
         services.AddScoped<PasswordValidationService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IEventService, EventService>();
         
         
         return services;

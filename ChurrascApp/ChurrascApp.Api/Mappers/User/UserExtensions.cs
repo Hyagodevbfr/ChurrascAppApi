@@ -88,8 +88,7 @@ public static class UserExtensions
             LastName = updateDto.LastName,
             Cpf = updateDto.Cpf,
             Email = updateDto.Email,
-            PhoneNumber = updateDto.PhoneNumber,
-            Password = updateDto.Password
+            PhoneNumber = updateDto.PhoneNumber
         };
     }
 
@@ -101,8 +100,7 @@ public static class UserExtensions
             updateRequest.LastName,
             updateRequest.Cpf,
             updateRequest.Email,
-            updateRequest.PhoneNumber,
-            updateRequest.Password
+            updateRequest.PhoneNumber
         );
     }
 
@@ -111,7 +109,7 @@ public static class UserExtensions
         return new UserResponse
         {
             Id = updateRequest.Id,
-            FullName = $"{updateRequest.FirstName}  {updateRequest.LastName}",
+            FullName = $"{updateRequest.FirstName} {updateRequest.LastName}",
             Cpf = updateRequest.Cpf,
             Email = updateRequest.Email,
             PhoneNumber = updateRequest.PhoneNumber,

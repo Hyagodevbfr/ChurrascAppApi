@@ -47,6 +47,7 @@ public static class EventExtensions
         )).ToList();
         
         return new EventResponse{
+            Id = dto.Id,
             BasicInfo = basicInfo,
             Organizer = organizer,
             HasExtraActivities = dto.HasExtraActivities,
@@ -63,6 +64,27 @@ public static class EventExtensions
         };
     }
 
+    // Update extensions
+    public static EventUpdateDto ToDto(this EventUpdateRequest request)
+    {
+        return new EventUpdateDto
+        (
+            request.Id,
+            request.BasicInfo,
+            request.Organizer,
+            request.HasExtraActivities,
+            request.ExtraActivity,
+            request.HasRequiredItems,
+            request.RequiredItems,
+            request.ContributionType,
+            request.TotalCost,
+            request.InviteCode,
+            request.LimitedGuests,
+            request.NumberOfGuests,
+            request.InvitedGuests,
+            request.ConfirmedGuests
+        );
+    }
     public static EventRegisterDto ToDto(this EventRegisterRequest request)
     {
         return new EventRegisterDto

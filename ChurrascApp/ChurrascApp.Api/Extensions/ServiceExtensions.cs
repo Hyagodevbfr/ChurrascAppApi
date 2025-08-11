@@ -1,3 +1,4 @@
+using ChurrascApp.Application;
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Application.Services;
 using ChurrascApp.Domain.Services;
@@ -14,7 +15,7 @@ public static class ServiceExtensions
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IEventService, EventService>();
-        
+        services.AddScoped<IJoinRequestService, JoinRequestService>();
         
         return services;
     }

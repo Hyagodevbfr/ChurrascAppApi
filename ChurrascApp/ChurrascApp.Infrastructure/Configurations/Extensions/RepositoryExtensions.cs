@@ -10,6 +10,7 @@ public static class RepositoryExtensions
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
         
         return services;
     }

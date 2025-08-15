@@ -8,10 +8,12 @@ namespace ChurrascApp.Application.Services;
 public class EventService : IEventService
 {
     private readonly IEventRepository _eventRepository;
+    private readonly IParticipantRepository _participantRepository;
 
-    public EventService(IEventRepository eventRepository)
+    public EventService(IEventRepository eventRepository, IParticipantRepository participantRepository)
     {
         _eventRepository = eventRepository;
+        _participantRepository = participantRepository;
     }
 
     public Task Delete(string id)
@@ -29,6 +31,10 @@ public class EventService : IEventService
     public async Task<EventResponseDto> GetById(string id)
     {
         var eventEntity = await _eventRepository.GetById(id);
+        eventEntity.ToResponse();
+        
+
+        // Next: Insert invited guests and confirmed guests from participants
 
         return eventEntity.ToResponse();
     }

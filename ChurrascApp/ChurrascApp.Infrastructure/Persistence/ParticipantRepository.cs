@@ -1,4 +1,5 @@
-﻿using ChurrascApp.Application.DTOs.Participant;
+﻿using ChurrascApp.Application.DTOs.Event;
+using ChurrascApp.Application.DTOs.Participant;
 using ChurrascApp.Domain.Entities;
 using ChurrascApp.Domain.Enums;
 using ChurrascApp.Domain.Repositories;
@@ -12,15 +13,11 @@ namespace ChurrascApp.Infrastructure;
 public class ParticipantRepository : BaseRepository<Participant>, IParticipantRepository
 {
     private readonly IMongoCollection<Participant> _mongoContext;
-    private readonly IUserRepository _userRepository;
-    private readonly IEventRepository _eventRepository;
     public ParticipantRepository(IOptions<MongoDbSettings> services, IUserRepository userRepository, IEventRepository eventRepository) : base(services)
     {
         var mongoClient = new MongoClient(services.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(services.Value.DatabaseName);
         _mongoContext = mongoDatabase.GetCollection<Participant>(nameof(Participant));
-        _userRepository = userRepository;
-        _eventRepository = eventRepository;
     }
 
     public async Task<IList<Participant>> GetConfirmedParticipantsByEventId(string eventId)
@@ -67,17 +64,20 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
         return await _mongoContext.Find(filter).ToListAsync();
     }
 
-    public async Task<Participant> SolicitParticipation(object request, User user, Event eventEntity)
+    public async Task<Participant> SolicitParticipation(object request, string userId, object eventResponse)
     {
         if (request is not ParticipationRequestDto participationRequest)
             throw new ArgumentException("Invalid request type.");
 
-        ValidateParticipationRequest(participationRequest, eventEntity);
+        if (eventResponse is not EventResponseDto eventRS)
+            throw new ArgumentException("Invalid response type");
 
-        ValidateRequestsValues(participationRequest, eventEntity);
+        ValidateParticipationRequest(participationRequest, eventRS);
+
+        ValidateRequestsValues(participationRequest, eventRS);
 
         var filterParticipant = Builders<Participant>.Filter.Eq(
-                                                    p => p.UserId, user.Id);
+                                                    p => p.UserId, userId);
 
         var participant = await _mongoContext.Find(filterParticipant).
                                                     FirstOrDefaultAsync();
@@ -122,21 +122,21 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
 
 
     // Validates the participation request
-    private void ValidateParticipationRequest(ParticipationRequestDto request, Event eventEntity)
+    private void ValidateParticipationRequest(ParticipationRequestDto request, EventResponseDto eventRS)
     {
-        if (eventEntity.HasExtraActivities && request.ParticipantInExtraActivity is null)
+        if (eventRS.HasExtraActivities && request.ParticipantInExtraActivity is null)
             throw new ArgumentException("Participant must specify if they will join the extra activity.");
 
-        if (eventEntity.HasRequiredItems && request.AssignedItems is null)
+        if (eventRS.HasRequiredItems && request.AssignedItems is null)
             throw new ArgumentException("Participant must specify required items if applicable.");
     }
 
-    public void ValidateRequestsValues(ParticipationRequestDto request, Event eventEntity)
+    public void ValidateRequestsValues(ParticipationRequestDto request, EventResponseDto eventRS)
     {
-        if (eventEntity.HasExtraActivities && request.ParticipantInExtraActivity is null)
+        if (eventRS.HasExtraActivities && request.ParticipantInExtraActivity is null)
             throw new ArgumentException("Participant must specify if they will join the extra activity.");
 
-        if (eventEntity.HasRequiredItems && request.AssignedItems is null)
+        if (eventRS.HasRequiredItems && request.AssignedItems is null)
             throw new ArgumentException("Participant must specify required items if applicable.");
     }
 

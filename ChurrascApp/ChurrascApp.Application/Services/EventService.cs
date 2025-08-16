@@ -32,11 +32,17 @@ public class EventService : IEventService
     {
         var eventEntity = await _eventRepository.GetById(id);
         eventEntity.ToResponse();
-        
+        var dto = new EventResponseDto(eventEntity.ToResponse());
+
 
         // Next: Insert invited guests and confirmed guests from participants
+        var invitedGuests = await _participantRepository.GetParticipantsByEventId(id);
+        var confirmedGuests = await _participantRepository.GetConfirmedParticipantsByEventId(id);
 
-        return eventEntity.ToResponse();
+        dto.InvitedGuests = invitedGuests.Select(p => p.ToGuest()).ToList();
+        dto.ConfirmedGuests = confirmedGuests.Select(p => p.ToConfirmedGuest()).ToList();
+
+        return dto;
     }
 
     public async Task<EventResponseDto> GetByInviteCode(string inviteCode)

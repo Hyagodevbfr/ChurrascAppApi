@@ -11,6 +11,7 @@ public static class RepositoryExtensions
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IJoinRequestRepository, JoinRequestRepository>();
+        services.AddScoped<IParticipantRepository, ParticipantRepository>();
         
         return services;
     }

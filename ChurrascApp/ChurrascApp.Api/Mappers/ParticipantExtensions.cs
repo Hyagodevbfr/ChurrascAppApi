@@ -21,14 +21,26 @@ public static class ParticipantExtensions
 
     public static ParticipantRS ToResponse(this ParticipantResponseDto responseDto)
     {
-        return new ParticipantRS{
+        return new ParticipantRS
+        {
             UserId = responseDto.UserId,
             EventId = responseDto.EventId,
             FullName = responseDto.FullName,
-            PhoneNumber =  responseDto.PhoneNumber,
+            PhoneNumber = responseDto.PhoneNumber,
             AssignedItems = responseDto.AssignedItems,
             ContributedAmount = responseDto.ContributedAmount,
             ParticipantInExtraActivity = responseDto.ParticipantInExtraActivity
         };
+    }
+
+    public static ParticipationRequestDto ToDto(this ParticipationRQ participation)
+    {
+        return new ParticipationRequestDto(
+            participation.UserId,
+            participation.EventId,
+            participation.AssignedItems,
+            participation.ContributedAmount,
+            participation.ParticipantInExtraActivity
+        );
     }
 }

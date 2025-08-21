@@ -15,7 +15,7 @@ public class JoinRequest : BaseEntity
 
     public JoinRequest() { }
 
-    public JoinRequest(string userId, string eventId, string fullName, string phoneNumber)
+    public JoinRequest(string userId, string eventId, string fullName, string phoneNumber, string? codeRequest = null)
     {
         Validate(userId, eventId, fullName, phoneNumber);
 
@@ -24,7 +24,12 @@ public class JoinRequest : BaseEntity
         FullName = fullName;
         PhoneNumber = phoneNumber;
         Status = StatusJoinRequest.Pending;
-        CodeRequest = new JoinRequestCode(eventId, userId);
+
+        if (string.IsNullOrEmpty(codeRequest))
+            CodeRequest = new JoinRequestCode(eventId, userId);
+        else
+            CodeRequest!.Code = codeRequest;
+
         RequestedAt = DateTime.UtcNow;
     }
 

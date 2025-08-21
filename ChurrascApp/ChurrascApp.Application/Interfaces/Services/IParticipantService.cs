@@ -13,5 +13,5 @@ public interface IParticipantService : IBaseService<ParticipantResponseDto, Part
     Task<ParticipantResponseDto> CancelParticipation(string userId);
     Task<ParticipantResponseDto> SolicitParticipation(ParticipationRequestDto request, string userId, EventResponseDto eventEntity);
     Task<ParticipantResponseDto> ConfirmParticipant(string userId, bool isConfirmed);
-    Task<ParticipantRegisterDto> ConfirmPayment(string userId);
+    Task<ParticipantResponseDto> ConfirmPayment(string userId);
 }

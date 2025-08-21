@@ -7,10 +7,12 @@ namespace ChurrascApp.Application;
 public class JoinRequestService : IJoinRequestService
 {
     private readonly IJoinRequestRepository _joinRequestRepository;
+    private readonly IParticipantService _participantService;
 
-    public JoinRequestService(IJoinRequestRepository joinRequestRepository)
+    public JoinRequestService(IJoinRequestRepository joinRequestRepository, IParticipantService participantService)
     {
         _joinRequestRepository = joinRequestRepository;
+        _participantService = participantService;
     }
 
     public Task Delete(string id)
@@ -60,12 +62,17 @@ public class JoinRequestService : IJoinRequestService
     public async Task<JoinRQResponseDto> RespondToRequest(string eventId, string userId, bool isAccepted)
     {
         var request = await _joinRequestRepository.RespondToRequest(eventId, userId, isAccepted);
+
+        var joinToParticipant = request.ToParticipantRegister();
+        await _participantService.Register(joinToParticipant);
         
         return request.ToResponse();
     }
 
-    public Task<JoinRQResponseDto> Update(JoinRequestUpdateDto updateDto)
+    public async Task<JoinRQResponseDto> Update(JoinRequestUpdateDto updateDto)
     {
-        throw new NotImplementedException();
+        var request = await _joinRequestRepository.Update(updateDto.ToEntity());
+        
+        return request.ToResponse();
     }
 }

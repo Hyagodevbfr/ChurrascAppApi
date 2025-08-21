@@ -45,8 +45,9 @@ public static class EventExtensions
             guest.Contribution,
             guest.IsInExtraActivity
         )).ToList();
-        
-        return new EventResponse{
+
+        return new EventResponse
+        {
             Id = dto.Id,
             BasicInfo = basicInfo,
             Organizer = organizer,
@@ -102,6 +103,26 @@ public static class EventExtensions
             request.NumberOfGuests,
             request.InvitedGuests,
             request.ConfirmedGuests
+        );
+    }
+
+    public static EventResponseDto ToDto(this EventResponse eventResponse)
+    {
+        return new EventResponseDto(
+            eventResponse.Id,
+            eventResponse.BasicInfo,
+            eventResponse.Organizer,
+            eventResponse.HasExtraActivities,
+            eventResponse.ExtraActivity,
+            eventResponse.HasRequiredItems,
+            eventResponse.RequiredItems,
+            eventResponse.ContributionType,
+            eventResponse.TotalCost,
+            eventResponse.InviteCode,
+            eventResponse.LimitedGuests,
+            eventResponse.NumberOfGuests,
+            eventResponse.InvitedGuests,
+            eventResponse.ConfirmedGuests
         );
     }
 }

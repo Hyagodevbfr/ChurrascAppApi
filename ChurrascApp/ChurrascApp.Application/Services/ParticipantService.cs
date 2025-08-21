@@ -1,8 +1,10 @@
 ﻿using ChurrascApp.Application.DTOs.Event;
+using ChurrascApp.Application.DTOs.JoinRequest;
 using ChurrascApp.Application.DTOs.Participant;
 using ChurrascApp.Application.DTOs.User;
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Application.Mappers;
+using ChurrascApp.Domain.Enums;
 using ChurrascApp.Domain.Repositories;
 
 namespace ChurrascApp.Application.Services;
@@ -10,9 +12,11 @@ namespace ChurrascApp.Application.Services;
 public class ParticipantService : IParticipantService
 {
     private readonly IParticipantRepository _participantRepository;
-    public ParticipantService(IParticipantRepository participantRepository)
+    private readonly IJoinRequestService _joinRequestService;
+    public ParticipantService(IParticipantRepository participantRepository, IJoinRequestService joinRequestService)
     {
         _participantRepository = participantRepository;
+        _joinRequestService = joinRequestService;
     }
 
     // Main Methods
@@ -43,20 +47,33 @@ public class ParticipantService : IParticipantService
     public async Task<ParticipantResponseDto> SolicitParticipation(ParticipationRequestDto request, string userId, EventResponseDto eventEntity)
     {
         var requestParticipation = await _participantRepository.SolicitParticipation(request, userId, eventEntity);
+        var join = await _joinRequestService.GetRequestByUser(request.EventId, userId);
+        var joinUpdate = join.ToUpdateStatus(StatusJoinRequest.Pending.ToString());
 
         return requestParticipation.ToResponse();
     }
     public async Task<ParticipantResponseDto> ConfirmParticipant(string userId, bool isConfirmed)
     {
-        var participantConfirmed = await _participantRepository.ConfirmParticipant(userId, isConfirmed);
+        var participant = await _participantRepository.ConfirmParticipant(userId, isConfirmed);
 
-        return participantConfirmed.ToResponse();
+        var join = await _joinRequestService.GetRequestByUser(participant.EventId, userId);
+        var joinUpdate = join.ToUpdateStatus(participant.Status.ToString());
+
+        await _joinRequestService.Update(joinUpdate);
+
+
+        return participant.ToResponse();
     }
     public async Task<ParticipantResponseDto> CancelParticipation(string userId)
     {
-        var participantCanceled = await _participantRepository.CancelParticipation(userId);
+        var participant = await _participantRepository.CancelParticipation(userId);
 
-        return participantCanceled.ToResponse();
+        var join = await _joinRequestService.GetRequestByUser(participant.EventId, userId);
+        var joinUpdate = join.ToUpdateStatus(StatusJoinRequest.Rejected.ToString());
+
+        await _joinRequestService.Update(joinUpdate);
+
+        return participant.ToResponse();
     }
     public async Task<ParticipantResponseDto> ConfirmPayment(string userId)
     {
@@ -78,16 +95,13 @@ public class ParticipantService : IParticipantService
     {
         throw new NotImplementedException();
     }
-    public Task<ParticipantResponseDto> Register(ParticipantRegisterDto registerDto)
+    public async Task<ParticipantResponseDto> Register(ParticipantRegisterDto registerDto)
     {
-        throw new NotImplementedException();
+        var result = await _participantRepository.Register(registerDto.ToEntity());
+
+        return result.ToResponse();
     }
     public Task<ParticipantResponseDto> Update(ParticipantUpdateDto updateDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<ParticipantRegisterDto> IParticipantService.ConfirmPayment(string userId)
     {
         throw new NotImplementedException();
     }

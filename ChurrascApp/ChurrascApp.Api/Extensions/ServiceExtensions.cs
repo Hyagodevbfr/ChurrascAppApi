@@ -16,6 +16,7 @@ public static class ServiceExtensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IJoinRequestService, JoinRequestService>();
+        services.AddScoped<IParticipantService, ParticipantService>();
         
         return services;
     }

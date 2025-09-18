@@ -6,17 +6,23 @@ using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Application.Mappers;
 using ChurrascApp.Domain.Enums;
 using ChurrascApp.Domain.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChurrascApp.Application.Services;
 
 public class ParticipantService : IParticipantService
 {
     private readonly IParticipantRepository _participantRepository;
-    private readonly IJoinRequestService _joinRequestService;
-    public ParticipantService(IParticipantRepository participantRepository, IJoinRequestService joinRequestService)
+    private readonly IServiceProvider _serviceProvider;
+    public ParticipantService(IParticipantRepository participantRepository, IServiceProvider serviceProvider)
     {
         _participantRepository = participantRepository;
-        _joinRequestService = joinRequestService;
+        _serviceProvider = serviceProvider;
+    }
+
+    private IJoinRequestService GetJoinRequestService()
+    {
+        return _serviceProvider.GetRequiredService<IJoinRequestService>();
     }
 
     // Main Methods
@@ -46,32 +52,35 @@ public class ParticipantService : IParticipantService
     }
     public async Task<ParticipantResponseDto> SolicitParticipation(ParticipationRequestDto request, string userId, EventResponseDto eventEntity)
     {
+        var joinRequestService = GetJoinRequestService();
         var requestParticipation = await _participantRepository.SolicitParticipation(request, userId, eventEntity);
-        var join = await _joinRequestService.GetRequestByUser(request.EventId, userId);
+        var join = await joinRequestService.GetRequestByUser(request.EventId, userId);
         var joinUpdate = join.ToUpdateStatus(StatusJoinRequest.Pending.ToString());
 
         return requestParticipation.ToResponse();
     }
     public async Task<ParticipantResponseDto> ConfirmParticipant(string userId, bool isConfirmed)
     {
+        var joinRequestService = GetJoinRequestService();
         var participant = await _participantRepository.ConfirmParticipant(userId, isConfirmed);
 
-        var join = await _joinRequestService.GetRequestByUser(participant.EventId, userId);
+        var join = await joinRequestService.GetRequestByUser(participant.EventId, userId);
         var joinUpdate = join.ToUpdateStatus(participant.Status.ToString());
 
-        await _joinRequestService.Update(joinUpdate);
+        await joinRequestService.Update(joinUpdate);
 
 
         return participant.ToResponse();
     }
     public async Task<ParticipantResponseDto> CancelParticipation(string userId)
     {
+        var joinRequestService = GetJoinRequestService();
         var participant = await _participantRepository.CancelParticipation(userId);
 
-        var join = await _joinRequestService.GetRequestByUser(participant.EventId, userId);
+        var join = await joinRequestService.GetRequestByUser(participant.EventId, userId);
         var joinUpdate = join.ToUpdateStatus(StatusJoinRequest.Rejected.ToString());
 
-        await _joinRequestService.Update(joinUpdate);
+        await joinRequestService.Update(joinUpdate);
 
         return participant.ToResponse();
     }

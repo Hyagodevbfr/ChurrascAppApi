@@ -38,7 +38,7 @@ namespace ChurrascApp.Api.Controllers
             );
         }
 
-        [HttpGet("ConfirmedsByEventId/{id}")]
+        [HttpGet("ConfirmsByEventId/{eventId}")]
         public async Task<IActionResult> GetConfirmedParticipantsByEventId(string eventId)
         {
             var result = await _participantService.GetConfirmedParticipantsByEventId(eventId);
@@ -153,7 +153,7 @@ namespace ChurrascApp.Api.Controllers
             return Ok(
                 new ViewResponse<IList<ParticipantRS>>(
                     true,
-                    "Participants Retreived Successfully.",
+                    "Participants Retrieved Successfully.",
                     response
                 )
             );

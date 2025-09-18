@@ -1,18 +1,24 @@
 ﻿using ChurrascApp.Application.DTOs.JoinRequest;
 using ChurrascApp.Application.Interfaces.Services;
 using ChurrascApp.Domain.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ChurrascApp.Application;
+namespace ChurrascApp.Application.Services;
 
 public class JoinRequestService : IJoinRequestService
 {
     private readonly IJoinRequestRepository _joinRequestRepository;
-    private readonly IParticipantService _participantService;
+    private readonly IServiceProvider _serviceProvider;
 
-    public JoinRequestService(IJoinRequestRepository joinRequestRepository, IParticipantService participantService)
+    public JoinRequestService(IJoinRequestRepository joinRequestRepository, IServiceProvider serviceProvider)
     {
         _joinRequestRepository = joinRequestRepository;
-        _participantService = participantService;
+        _serviceProvider = serviceProvider;
+    }
+
+    private IParticipantService GetParticipantService()
+    {
+        return _serviceProvider.GetRequiredService<IParticipantService>();
     }
 
     public Task Delete(string id)
@@ -62,9 +68,10 @@ public class JoinRequestService : IJoinRequestService
     public async Task<JoinRQResponseDto> RespondToRequest(string eventId, string userId, bool isAccepted)
     {
         var request = await _joinRequestRepository.RespondToRequest(eventId, userId, isAccepted);
+        var participantService = GetParticipantService();
 
         var joinToParticipant = request.ToParticipantRegister();
-        await _participantService.Register(joinToParticipant);
+        await participantService.Register(joinToParticipant);
         
         return request.ToResponse();
     }
